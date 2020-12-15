@@ -52,7 +52,7 @@ add_custom_command(
     OUTPUT 
 	${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so 
         ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/build.sh	
+    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/build_thirdparty_libs.sh	
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
@@ -89,7 +89,10 @@ src/Initializer.cc
 src/Viewer.cc
 )
 
-#add_dependencies(${PROJECT_NAME} thirdparty_libs)
+add_dependencies(
+	${PROJECT_NAME} 
+		thirdparty_libs
+)
 
 
 target_link_libraries(${PROJECT_NAME}
