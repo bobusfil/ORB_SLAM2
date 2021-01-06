@@ -41,7 +41,6 @@ find_package(Eigen3 3.1.0 REQUIRED)
 find_package(Pangolin REQUIRED)
 
 #filip EDIT
-message(STATUS "FILIP")
 add_custom_target(thirdparty_libs 
     DEPENDS 
 	${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so 
@@ -52,8 +51,8 @@ add_custom_command(
     OUTPUT 
 	${PROJECT_SOURCE_DIR}/Thirdparty/DBoW2/lib/libDBoW2.so 
         ${PROJECT_SOURCE_DIR}/Thirdparty/g2o/lib/libg2o.so
-    COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/build_thirdparty_libs.sh	
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+    COMMAND ${PROJECT_SOURCE_DIR}/build_thirdparty_libs.sh
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
 include_directories(
@@ -63,10 +62,9 @@ ${EIGEN3_INCLUDE_DIR}
 ${Pangolin_INCLUDE_DIRS}
 )
 
-
+execute_process(COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/build_thirdparty_libs.sh)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
-
 add_library(${PROJECT_NAME} SHARED
 src/System.cc
 src/Tracking.cc
@@ -136,5 +134,5 @@ add_executable(mono_euroc
 Examples/Monocular/mono_euroc.cc)
 target_link_libraries(mono_euroc ${PROJECT_NAME})
 
-install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_LIB})
 

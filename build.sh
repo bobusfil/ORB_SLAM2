@@ -1,5 +1,5 @@
 echo "Configuring and building Thirdparty/DBoW2 ..."
-echo "FILIP"
+
 cd Thirdparty/DBoW2
 mkdir build
 cd build
